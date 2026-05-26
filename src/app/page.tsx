@@ -7,7 +7,7 @@ export default function DashboardPage() {
   const { data } = useQuery({
     queryKey: ["dashboard"],
     queryFn: async () => {
-      const res = await api.get("/admin/dashboard")
+      const res = await api.get("/dashboard/overview")
       return res.data.data
     }
   })

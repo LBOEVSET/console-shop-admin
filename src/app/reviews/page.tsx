@@ -7,7 +7,7 @@ export default function ReviewListing() {
   const { data } = useQuery({
     queryKey: ["reviews"],
     queryFn: async () => {
-      const res = await api.get("/review/list")
+      const res = await api.get("/reviews")
       return res.data.data
     }
   })

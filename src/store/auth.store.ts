@@ -24,7 +24,7 @@ export const useAdminAuth = create<AuthState>((set) => ({
   fetchProfile: async () => {
     try {
       const res = await api.get("/profile")
-      const user = res.data
+      const user = res.data.data
 
       // Only accept ADMIN role — reject customers who reach this panel
       if (user?.role !== "ADMIN") {

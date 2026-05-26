@@ -8,7 +8,8 @@ import {
   ShoppingCart,
   MessageSquare,
   Star,
-  Ticket
+  Ticket,
+  Newspaper,
 } from "lucide-react"
 
 export default function Sidebar({ collapsed }: { collapsed: boolean }) {
@@ -30,6 +31,7 @@ export default function Sidebar({ collapsed }: { collapsed: boolean }) {
         <NavItem href="/tickets" icon={<Ticket size={18} />} label="Tickets" collapsed={collapsed} />
         <NavItem href="/chat" icon={<MessageSquare size={18} />} label="Live Chat" collapsed={collapsed} />
         <NavItem href="/reviews" icon={<Star size={18} />} label="Reviews" collapsed={collapsed} />
+        <NavItem href="/articles" icon={<Newspaper size={18} />} label="Articles" collapsed={collapsed} />
       </nav>
     </aside>
   )
