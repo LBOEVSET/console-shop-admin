@@ -2,11 +2,11 @@
 
 import { useQuery } from "@tanstack/react-query"
 import api from "@/lib/api"
-import { useAuthStore } from "@/store/auth.store"
+import { useAdminAuth } from "@/store/auth.store"
 import { User, Mail, Shield } from "lucide-react"
 
 export default function AdminProfilePage() {
-  const { user } = useAuthStore()
+  const { admin: user } = useAdminAuth()
 
   const { data: profile, isLoading } = useQuery({
     queryKey: ["admin-profile"],
