@@ -34,6 +34,7 @@ export const useAdminAuth = create<AuthState>((set) => ({
 
       set({ admin: user, loading: false })
     } catch {
+      // fetchProfile failing (even after refresh attempt) means no valid session
       set({ admin: null, loading: false })
     }
   },

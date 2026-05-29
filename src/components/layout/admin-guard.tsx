@@ -25,7 +25,7 @@ export default function AdminGuard({
   useEffect(() => {
     if (isLoginPage) return
     if (!loading && !admin) {
-      router.push("/login")
+      router.replace("/login")
     }
   }, [loading, admin, isLoginPage])
 
