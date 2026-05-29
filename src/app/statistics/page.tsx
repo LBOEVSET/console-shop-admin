@@ -285,7 +285,7 @@ function ItemChart({
     for (const r of data) {
       const day = new Date(r.day).toLocaleDateString("en-US", { month: "short", day: "numeric" })
       if (!map[day]) map[day] = { day, SEE: 0, VIEW: 0, CLICK: 0 }
-      map[day][r.eventType as keyof typeof map[typeof day]] = r.count
+      ;(map[day] as Record<string, number | string>)[r.eventType] = r.count
     }
     return Object.values(map)
   }, [data])
