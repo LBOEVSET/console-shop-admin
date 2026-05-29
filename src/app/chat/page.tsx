@@ -43,7 +43,7 @@ export default function AdminChatPage() {
   const [connected, setConnected] = useState(false)
   const [filter,    setFilter]    = useState<"ALL"|"WAITING"|"ACTIVE"|"CLOSED">("ALL")
 
-  const socketRef   = useRef(getChatSocket())
+  const socketRef   = useRef<Awaited<ReturnType<typeof getChatSocket>> | null>(null)
   const activeIdRef = useRef<string | null>(null)
   const messagesEnd = useRef<HTMLDivElement>(null)
 
@@ -66,20 +66,28 @@ export default function AdminChatPage() {
   }, [])
 
   useEffect(() => {
-    const socket = socketRef.current
-    socket.connect()
-    socket.on("connect",    () => setConnected(true))
-    socket.on("disconnect", () => setConnected(false))
-    socket.on("newMessage", (msg: ChatMessage) => {
-      if (!activeIdRef.current) return
-      setMessages(prev => prev.some(m => m.id === msg.id) ? prev : [...prev, msg])
-    })
-    socket.on("closed", () => {
-      setMessages(prev => [...prev, { id: "sys-closed", message: "This session has been closed.", sender: "__system__", createdAt: new Date().toISOString() }])
-      refetchSessions()
+    let destroyed = false
+    getChatSocket().then((socket) => {
+      if (destroyed) return
+      socketRef.current = socket
+      socket.connect()
+      socket.on("connect",    () => setConnected(true))
+      socket.on("disconnect", () => setConnected(false))
+      socket.on("newMessage", (msg: ChatMessage) => {
+        if (!activeIdRef.current) return
+        setMessages(prev => prev.some(m => m.id === msg.id) ? prev : [...prev, msg])
+      })
+      socket.on("closed", () => {
+        setMessages(prev => [...prev, { id: "sys-closed", message: "This session has been closed.", sender: "__system__", createdAt: new Date().toISOString() }])
+        refetchSessions()
+      })
     })
     return () => {
-      socket.off("connect"); socket.off("disconnect"); socket.off("newMessage"); socket.off("closed")
+      destroyed = true
+      socketRef.current?.off("connect")
+      socketRef.current?.off("disconnect")
+      socketRef.current?.off("newMessage")
+      socketRef.current?.off("closed")
       destroyChatSocket()
       setConnected(false)
     }
@@ -94,7 +102,7 @@ export default function AdminChatPage() {
     }
     setActiveId(session.id)
     setMessages([])
-    socketRef.current.emit("join", { sessionId: session.id })
+    socketRef.current?.emit("join", { sessionId: session.id })
     await loadMessages(session.id)
   }
 
@@ -103,14 +111,14 @@ export default function AdminChatPage() {
     if (!input.trim() || !sid || !connected) return
     const text = input.trim()
     setInput("")
-    socketRef.current.emit("sendMessage", { sessionId: sid, message: text })
+    socketRef.current?.emit("sendMessage", { sessionId: sid, message: text })
     setMessages(prev => [...prev, { id: `opt-${Date.now()}`, message: text, sender: "__admin__", createdAt: new Date().toISOString() }])
   }
 
   function closeSession() {
     const sid = activeIdRef.current
     if (!sid) return
-    socketRef.current.emit("close", { sessionId: sid })
+    socketRef.current?.emit("close", { sessionId: sid })
     refetchSessions()
   }
 
