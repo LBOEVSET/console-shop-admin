@@ -89,7 +89,8 @@ export default function AdminOrdersPage() {
           <p className="text-sm">No orders found</p>
         </div>
       ) : (
-        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
+        <div className="overflow-x-auto">
+        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden min-w-[500px]">
           <table className="w-full text-sm">
             <thead className="bg-gray-50 dark:bg-gray-800 text-xs text-gray-500 uppercase tracking-wide">
               <tr>
@@ -137,6 +138,7 @@ export default function AdminOrdersPage() {
               ))}
             </tbody>
           </table>
+        </div>
         </div>
       )}
     </div>

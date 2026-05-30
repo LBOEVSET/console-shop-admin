@@ -13,7 +13,7 @@ export default function DashboardPage() {
   })
 
   return (
-    <div className="grid md:grid-cols-4 gap-6">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
       <Stat title="Total Sales" value={`$${data?.totalSales || 0}`} />
       <Stat title="Orders" value={data?.totalOrders || 0} />
       <Stat title="Pending Tickets" value={data?.pendingTickets || 0} />

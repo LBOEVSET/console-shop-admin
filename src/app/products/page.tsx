@@ -58,7 +58,8 @@ export default function ProductManagement() {
           ))}
         </div>
       ) : (
-        <div className="bg-white dark:bg-gray-900 rounded-xl border dark:border-gray-800 overflow-hidden">
+        <div className="overflow-x-auto">
+        <div className="bg-white dark:bg-gray-900 rounded-xl border dark:border-gray-800 overflow-hidden min-w-[700px]">
           {/* Table header */}
           <div className="grid grid-cols-[56px_1fr_140px_110px_110px_80px_80px_44px] gap-4 px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider border-b dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50">
             <span></span>
@@ -79,6 +80,7 @@ export default function ProductManagement() {
           ) : (
             filtered.map((p: any) => <ProductRow key={p.id} product={p} />)
           )}
+        </div>
         </div>
       )}
     </div>

@@ -15,6 +15,7 @@ import {
   CalendarDays,
   ShoppingBag,
   BarChart2,
+  X,
 } from "lucide-react"
 
 function useChatBadge() {
@@ -32,16 +33,24 @@ function useChatBadge() {
   return data ?? 0
 }
 
-export default function Sidebar({ collapsed }: { collapsed: boolean }) {
+export default function Sidebar({ collapsed, onClose }: { collapsed: boolean; onClose?: () => void }) {
   const waitingCount = useChatBadge()
 
   return (
     <aside
       className={cn(
-        "transition-all duration-300 bg-white dark:bg-gray-900 border-r",
+        "relative h-full transition-all duration-300 bg-white dark:bg-gray-900 border-r",
         collapsed ? "w-20" : "w-64"
       )}
     >
+      {/* Close button — mobile only */}
+      <button
+        className="md:hidden absolute top-4 right-4 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
+        onClick={onClose}
+      >
+        <X size={20} />
+      </button>
+
       <div className="p-4 font-bold text-lg">
         {collapsed ? "🎮" : "Console Admin"}
       </div>
