@@ -4,6 +4,7 @@ import Link from "next/link"
 import { cn } from "@/lib/utils"
 import { useQuery } from "@tanstack/react-query"
 import api from "@/lib/api"
+import { useAdminAuth } from "@/store/auth.store"
 import {
   LayoutDashboard,
   Package,
@@ -18,23 +19,25 @@ import {
   X,
 } from "lucide-react"
 
-function useChatBadge() {
+function useChatBadge(enabled: boolean) {
   const { data } = useQuery<number>({
     queryKey: ["chat-waiting-count"],
     queryFn: async () => {
       const res = await api.get("/chat/waiting-count")
-      // returns a plain number from getWaitingCount()
       const val = res.data?.data ?? res.data
       return typeof val === "number" ? val : 0
     },
+    enabled,
     refetchInterval: 15_000,
     staleTime: 10_000,
+    retry: false,
   })
   return data ?? 0
 }
 
 export default function Sidebar({ collapsed, onClose }: { collapsed: boolean; onClose?: () => void }) {
-  const waitingCount = useChatBadge()
+  const { admin } = useAdminAuth()
+  const waitingCount = useChatBadge(!!admin)
 
   return (
     <aside
