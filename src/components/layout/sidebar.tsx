@@ -17,6 +17,7 @@ import {
   ShoppingBag,
   BarChart2,
   Users,
+  CreditCard,
   X,
 } from "lucide-react"
 
@@ -43,7 +44,7 @@ export default function Sidebar({ collapsed, onClose }: { collapsed: boolean; on
   return (
     <aside
       className={cn(
-        "relative h-full transition-all duration-300 bg-white dark:bg-gray-900 border-r",
+        "relative h-full flex flex-col transition-all duration-300 bg-white dark:bg-gray-900 border-r",
         collapsed ? "w-20" : "w-64"
       )}
     >
@@ -59,7 +60,7 @@ export default function Sidebar({ collapsed, onClose }: { collapsed: boolean; on
         {collapsed ? "🎮" : "Console Admin"}
       </div>
 
-      <nav className="space-y-2 p-2">
+      <nav className="space-y-2 p-2 overflow-y-auto flex-1">
         <NavItem href="/" icon={<LayoutDashboard size={18} />} label="Dashboard" collapsed={collapsed} />
         <NavItem href="/products" icon={<Package size={18} />} label="Products" collapsed={collapsed} />
         <NavItem href="/orders" icon={<ShoppingCart size={18} />} label="Orders" collapsed={collapsed} />
@@ -69,8 +70,9 @@ export default function Sidebar({ collapsed, onClose }: { collapsed: boolean; on
         <NavItem href="/articles"     icon={<Newspaper    size={18} />} label="Articles"     collapsed={collapsed} />
         <NavItem href="/events"       icon={<CalendarDays size={18} />} label="Events"       collapsed={collapsed} />
         <NavItem href="/merchandise"  icon={<ShoppingBag  size={18} />} label="Merchandise"  collapsed={collapsed} />
-        <NavItem href="/users"        icon={<Users        size={18} />} label="Users"        collapsed={collapsed} />
-        <NavItem href="/statistics"   icon={<BarChart2    size={18} />} label="Statistics"   collapsed={collapsed} />
+        <NavItem href="/users"         icon={<Users        size={18} />} label="Users"         collapsed={collapsed} />
+        <NavItem href="/subscriptions" icon={<CreditCard   size={18} />} label="Subscriptions" collapsed={collapsed} />
+        <NavItem href="/statistics"    icon={<BarChart2    size={18} />} label="Statistics"    collapsed={collapsed} />
       </nav>
     </aside>
   )
