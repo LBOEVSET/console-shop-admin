@@ -285,7 +285,7 @@ export default function DashboardPage() {
     },
     {
       title: "Pending Orders",
-      value: recentOrders.filter((o: any) => o.status === "PENDING_PAYMENT").length,
+      value: loadingOverview ? "—" : (overview?.pendingOrders ?? 0),
       sub: "Awaiting payment",
       icon: Clock,
       color: "bg-yellow-100 text-yellow-600 dark:bg-yellow-900/30",
