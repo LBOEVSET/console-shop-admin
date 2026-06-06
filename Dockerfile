@@ -10,9 +10,11 @@ RUN npm install
 
 COPY . .
 
-# NEXT_PUBLIC_API_URL is baked into the JS bundle at build time.
+# NEXT_PUBLIC_* vars are baked into the JS bundle at build time.
 ARG NEXT_PUBLIC_API_URL
+ARG NEXT_PUBLIC_ZONE=local
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_ZONE=$NEXT_PUBLIC_ZONE
 ENV NODE_ENV=production
 
 RUN npm run build

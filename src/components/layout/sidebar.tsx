@@ -16,6 +16,7 @@ import {
   CalendarDays,
   ShoppingBag,
   BarChart2,
+  Users,
   X,
 } from "lucide-react"
 
@@ -68,6 +69,7 @@ export default function Sidebar({ collapsed, onClose }: { collapsed: boolean; on
         <NavItem href="/articles"     icon={<Newspaper    size={18} />} label="Articles"     collapsed={collapsed} />
         <NavItem href="/events"       icon={<CalendarDays size={18} />} label="Events"       collapsed={collapsed} />
         <NavItem href="/merchandise"  icon={<ShoppingBag  size={18} />} label="Merchandise"  collapsed={collapsed} />
+        <NavItem href="/users"        icon={<Users        size={18} />} label="Users"        collapsed={collapsed} />
         <NavItem href="/statistics"   icon={<BarChart2    size={18} />} label="Statistics"   collapsed={collapsed} />
       </nav>
     </aside>

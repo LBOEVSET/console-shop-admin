@@ -34,6 +34,7 @@ jobs:
         run: |
           set -a && source _config/environments/dev.env && set +a
           echo "NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL" >> $GITHUB_ENV
+          echo "NEXT_PUBLIC_ZONE=$NEXT_PUBLIC_ZONE"       >> $GITHUB_ENV
 
       - name: Authenticate to Google Cloud (WIF)
         uses: google-github-actions/auth@v2
@@ -53,6 +54,7 @@ jobs:
           docker build \
             --platform linux/amd64 \
             --build-arg NEXT_PUBLIC_API_URL="${{ env.NEXT_PUBLIC_API_URL }}" \
+            --build-arg NEXT_PUBLIC_ZONE="${{ env.NEXT_PUBLIC_ZONE }}" \
             -t "${IMAGE_PATH}:latest" \
             -t "${IMAGE_PATH}:${{ github.sha }}" \
             .
